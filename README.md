@@ -2,6 +2,10 @@
 ## Running Environment
 python 3.7.4 pytorch 1.4.0 CPU
 
+## data preprocessing
+- traffic dataset
+The original data is the traffic flow in Sichuan Province, which is confidential. So, I use the PeMS_04 as an alternative.
+
 ## 1 Model
 - GAT.py
 

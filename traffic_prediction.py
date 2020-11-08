@@ -1,9 +1,4 @@
 # -*- coding: utf-8 -*-
-"""
-@Time   : 2020/6/4
-
-@Author : Shen Fang
-"""
 import os
 import time
 import torch
@@ -23,8 +18,8 @@ random.seed(seed)
 torch.manual_seed(seed)
 np.random.seed(seed)
 
-plt.rcParams['font.sans-serif']=['SimHei'] #用来正常显示中文标签
-plt.rcParams['axes.unicode_minus']=False #用来正常显示负号
+# plt.rcParams['font.sans-serif']=['SimHei'] #用来正常显示中文标签
+# plt.rcParams['axes.unicode_minus']=False #用来正常显示负号
 
 class GCN(nn.Module):
     def __init__(self, in_c, hid_c, out_c):
@@ -203,35 +198,35 @@ def main():
         epoch_mape = MAPE( all_y_true,all_predict_value)
         print("Test Loss: {:02.4f}, mae: {:02.4f}, rmse: {:02.4f}, mape: {:02.4f}".format( 10*total_loss / (len(test_data)/64) ,epoch_mae,epoch_rmse,epoch_mape))
 
-    #保存模型
+    #save the model
     torch.save(my_net,'model_GAT_6.pth')
-    
-    
-    ####选择节点进行流量可视化
+
+
+    ####choose node to visualize
     node_id = 120
 
-    plt.title(str(node_id)+" 号节点交通流量可视化(第一天)")
-    plt.xlabel("时刻/5min")
-    plt.ylabel("交通流量")
-    plt.plot(test_data.recover_data(test_data.flow_norm[0],test_data.flow_norm[1],all_y_true)[:24*12,node_id,0,0],label='真实值')
-    plt.plot(test_data.recover_data(test_data.flow_norm[0],test_data.flow_norm[1],all_predict_value)[:24*12,node_id,0,0],label = '预测值')
+    plt.title("Node" + str(node_id)+" visualization for 1 day")
+    plt.xlabel("time/5min")
+    plt.ylabel("traffic flow")
+    plt.plot(test_data.recover_data(test_data.flow_norm[0],test_data.flow_norm[1],all_y_true)[:24*12,node_id,0,0],label='Ground Truth')
+    plt.plot(test_data.recover_data(test_data.flow_norm[0],test_data.flow_norm[1],all_predict_value)[:24*12,node_id,0,0],label = 'Prediction')
     plt.legend()
-    plt.savefig(str(node_id)+" 号节点交通流量可视化(第一天).png", dpi=400)
+    plt.savefig("Node" + str(node_id)+" visualization for 1 day.png", dpi=400)
     plt.show()
     
-    plt.title(str(node_id)+" 号节点交通流量可视化(两周)")
-    plt.xlabel("时刻/5min")
-    plt.ylabel("交通流量")
-    plt.plot(test_data.recover_data(test_data.flow_norm[0],test_data.flow_norm[1],all_y_true)[:,node_id,0,0],label = '真实值')
-    plt.plot(test_data.recover_data(test_data.flow_norm[0],test_data.flow_norm[1],all_predict_value)[:,node_id,0,0],label = '预测值')
+    plt.title("Node" + str(node_id)+" visualization (2 weeks)")
+    plt.xlabel("time/5min")
+    plt.ylabel("traffic flow")
+    plt.plot(test_data.recover_data(test_data.flow_norm[0],test_data.flow_norm[1],all_y_true)[:,node_id,0,0],label = 'Ground Truth')
+    plt.plot(test_data.recover_data(test_data.flow_norm[0],test_data.flow_norm[1],all_predict_value)[:,node_id,0,0],label = 'Prediction')
     plt.legend()
-    plt.savefig(str(node_id)+" 号节点交通流量可视化(两周).png", dpi=400)
+    plt.savefig("Node" + str(node_id)+" visualization for 2 weeks.png", dpi=400)
     plt.show()
 
     mae = MAE(test_data.recover_data(test_data.flow_norm[0],test_data.flow_norm[1],all_y_true),test_data.recover_data(test_data.flow_norm[0],test_data.flow_norm[1],all_predict_value))
     rmse = RMSE(test_data.recover_data(test_data.flow_norm[0],test_data.flow_norm[1],all_y_true),test_data.recover_data(test_data.flow_norm[0],test_data.flow_norm[1],all_predict_value))
     mape = MAPE(test_data.recover_data(test_data.flow_norm[0],test_data.flow_norm[1],all_y_true),test_data.recover_data(test_data.flow_norm[0],test_data.flow_norm[1],all_predict_value))
-    print("基于原始值的精度指标  mae: {:02.4f}, rmse: {:02.4f}, mape: {:02.4f}".format(mae,rmse,mape))
+    print("Accuracy Indicators Based on Original Values  mae: {:02.4f}, rmse: {:02.4f}, mape: {:02.4f}".format(mae,rmse,mape))
                            
 if __name__ == '__main__':
     main()

@@ -1,9 +1,4 @@
 # -*- coding: utf-8 -*-
-"""
-@Time   : 2020/6/4
-
-@Author : Shen Fang
-"""
 import torch
 import torch.nn as nn
 import torch.nn.init as init

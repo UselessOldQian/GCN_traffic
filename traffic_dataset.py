@@ -1,9 +1,4 @@
 # -*- coding: utf-8 -*-
-"""
-@Time   : 2020/6/3
-
-@Author : Shen Fang
-"""
 import csv
 import torch
 import numpy as np

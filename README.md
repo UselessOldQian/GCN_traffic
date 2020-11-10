@@ -10,7 +10,7 @@ The original data is the traffic flow in Sichuan Province, which is confidential
 - GAT.py
 
 my_net = GAT_model(6,6,1)
-### 1.1 Attention层
+### 1.1 Attention Layer
 其中GAT使用自定义的attention层 输入为[B,N,in_features] ，输出为[B,N,out_features]
 class GraphAttentionLayer(nn.Module):
 
